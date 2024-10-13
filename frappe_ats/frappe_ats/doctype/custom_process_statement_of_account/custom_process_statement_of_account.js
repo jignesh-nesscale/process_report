@@ -94,7 +94,7 @@ frappe.ui.form.on("Custom Process Statement Of Account", {
 	fetch_customers: function (frm) {
 		if (frm.doc.collection_name) {
 			frappe.call({
-				method: "frappe_ats.frappe_ats.doctype.process_statement_of_accounts_clone.process_statement_of_accounts_clone.fetch_customers",
+				method: "frappe_ats.frappe_ats.doctype.process_statement_of_account.process_statement_of_account.fetch_customers",
 				args: {
 					customer_collection: frm.doc.customer_collection,
 					collection_name: frm.doc.collection_name,
@@ -123,7 +123,7 @@ frappe.ui.form.on("Custom Process Statement Of Account", {
 	},
 });
 
-frappe.ui.form.on("Process Statement Of Accounts Customer", {
+frappe.ui.form.on("Custom Process Statement Of Account", {
 	customer: function (frm, cdt, cdn) {
 		var row = locals[cdt][cdn];
 		if (!row.customer) {

@@ -1,4 +1,4 @@
-<div class="page-break">
+<!-- <div class="page-break">
 	<div id="header-html" class="hidden-pdf">
 		{% if letter_head.content %}
 		<div class="letter-head text-center">{{ letter_head.content }}</div>
@@ -112,4 +112,263 @@
 		{{ terms_and_conditions }}
 	</div>
 	{% endif %}
+</div> -->
+
+<style>
+	.due-table-custom {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.due-table-custom th,
+.due-table-custom td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+	.statement-container-custom {
+		width: 100%;
+		max-width: 1000px;
+		margin: 0 auto;
+		padding: 5px;
+	}
+
+	.header-custom {
+		text-align: right;
+		margin-bottom: 10px;
+	}
+
+	.flex-container-custom {
+		display: flex;
+		justify-content: space-between;
+		gap: 15px;
+	}
+
+	.flex-container-custom div {
+		width: 33%;
+	}
+
+	.customer-info-custom,
+	.statement-details-custom,
+	.payment-terms-cntner,
+	.due-table-container-custom {
+		padding: 6px;
+	}
+
+	.Terms-conditons {
+		width: 100%;
+		border-collapse: collapse;
+		margin-top: 20px;
+	}
+
+	.Terms-conditons p {
+		text-align: left;
+		justify-content: space-between;
+	}
+
+	.paymet-table-container,
+	.invoice-table-custom,
+	.due-table-custom {
+		width: 100%;
+		border-collapse: collapse;
+		margin-top: 20px;
+	}
+
+	.paymet-table-container th,
+	.paymet-table-container td,
+	.invoice-table-custom th,
+	.invoice-table-custom td,
+	.due-table-custom th,
+	.due-table-custom td {
+		border: 1px solid #ccc;
+		padding: 8px;
+		text-align: left;
+	}
+
+	.invoice-table-custom td {
+		text-align: right;
+	}
+
+	.footer-custom {
+		font-family: sans-serif;
+		margin-top: 20px; /* Adjust spacing as needed */
+	}
+
+	.legal-notice-custom {
+		margin-bottom: 10px;
+	}
+
+	.contact-details-custom {
+		display: flex;
+		flex-direction: column; /* Stack details vertically */
+	}
+
+	.contact-details-custom > div {
+		margin-bottom: 5px;
+	}
+
+	/* Custom Styles for Ageing Report */
+	.ageing-report-container {
+		float: right;
+		width: auto; /* Adjust as necessary */
+	}
+
+	.ageing-report-table th,
+	.ageing-report-table td {
+		border: 1px solid #ccc;
+		padding: 8px;
+		text-align: right;
+	}
+</style>
+<div class="statement-container-custom">
+	<div class="header-custom">
+		<h3>Customer Statement</h3>
+		<p>{{ customer_code }}</p>
+	</div>
+
+	<div class="ageing-report-container">
+		{% if ageing %}
+		<h4 class="text-center">{{ _("Ageing Report based on ") }} {{ ageing.ageing_based_on }}
+			{{ _("up to ") }} {{ frappe.format(filters.to_date, 'Date') }}
+		</h4>
+		<div class="due-table-container-custom">
+			<table class="due-table-custom">
+				<thead>
+					<tr>
+						<th>Due</th>
+						<th>Amount</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>0 - 30 Days</td>
+						<td>{{ frappe.utils.fmt_money(ageing.range1, currency=filters.presentation_currency) }}</td>
+					</tr>
+					<tr>
+						<td>30 - 60 Days</td>
+						<td>{{ frappe.utils.fmt_money(ageing.range2, currency=filters.presentation_currency) }}</td>
+					</tr>
+					<tr>
+						<td>60 - 90 Days</td>
+						<td>{{ frappe.utils.fmt_money(ageing.range3, currency=filters.presentation_currency) }}</td>
+					</tr>
+					<tr>
+						<td>90 - 120 Days</td>
+						<td>{{ frappe.utils.fmt_money(ageing.range4, currency=filters.presentation_currency) }}</td>
+					</tr>
+					<tr>
+						<td>Above 120 Days</td>
+						<td>{{ frappe.utils.fmt_money(ageing.range5, currency=filters.presentation_currency) }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		{% endif %}
+	</div>
+	
+	<div class="flex-container-custom">
+		<div class="customer-info-custom">
+			<h3>Customer Name:</h3>
+			<p>MHI Power ZAF (PTY) LTD</p>
+			<h3>VAT Number:</h3>
+			<p>4020264182</p>
+			<h3>Customer Address:</h3>
+			<p>MHI Power ZAF (Pty) Ltd-Billing</p>
+			<p>Building 30</p>
+			<p>Woodlands Office Park</p>
+			<p>Sandton</p>
+			<p>Gauteng</p>
+			<p>2195</p>
+			<p>South Africa</p>
+			<p>Phone: +27 11 260 4300</p>
+			<p>Email: finance@za.mhps.com</p>
+		</div>
+
+		<div class="statement-details-custom">
+			<h3>Statement Date:</h3>
+			<p>24-07-2024</p>
+			<h3>Contact Person:</h3>
+			<p>Brenda Rangata</p>
+			<h3>Contact Email:</h3>
+			<p>b_rangata@zafmhi.com</p>
+			<h3>VAT Category:</h3>
+			<p>Standard-Rated VAT</p>
+		</div>
+	</div>
+
+	<table class="invoice-table-custom">
+		<thead>
+			<tr>
+				<th style="width: 12%">{{ _("Date") }}</th>
+				<th style="width: 15%">{{ _("Reference") }}</th>
+				<th style="width: 25%">{{ _("Remarks") }}</th>
+				<th style="width: 15%">{{ _("Debit") }}</th>
+				<th style="width: 15%">{{ _("Credit") }}</th>
+				<th style="width: 18%">{{ _("Balance (Dr - Cr)") }}</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for row in data %}
+			<tr>
+			{% if (row.posting_date) %}
+				<td>{{ frappe.format(row.posting_date, 'Date') }}</td>
+				<td>{{ row.voucher_type }}<br>{{ row.voucher_no }}</td>
+				<td>
+					{% if not (filters.party or filters.account) %}
+						{{ row.party or row.account }}<br>
+					{% endif %}
+					<br>{{ _("Remarks") }}: {{ row.remarks }}
+					{% if row.bill_no %}
+						<br>{{ _("Supplier Invoice No") }}: {{ row.bill_no }}
+					{% endif %}
+				</td>
+				<td style="text-align: right">{{ frappe.utils.fmt_money(row.debit, currency=filters.presentation_currency) }}</td>
+				<td style="text-align: right">{{ frappe.utils.fmt_money(row.credit, currency=filters.presentation_currency) }}</td>
+			{% else %}
+				<td></td>
+				<td></td>
+				<td><b>{{ frappe.format(row.account, {fieldtype: "Link"}) or "&nbsp;" }}</b></td>
+				<td style="text-align: right">{{ row.get('account', '') and frappe.utils.fmt_money(row.debit, currency=filters.presentation_currency) }}</td>
+				<td style="text-align: right">{{ row.get('account', '') and frappe.utils.fmt_money(row.credit, currency=filters.presentation_currency) }}</td>
+			{% endif %}
+				<td style="text-align: right">{{ frappe.utils.fmt_money(row.balance, currency=filters.presentation_currency) }}</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+
+	<div class="payment-terms-cntner">
+		<h3>Payment Terms:</h3>
+		<table class="paymet-table-container">
+			<thead>
+				<tr>
+					<th>Payment Terms</th>
+					<th>Descriptions</th>
+					<th>Discount</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>30 Days</td>
+					<td>Payment in full within 30 days of invoice</td>
+					<td>0</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="footer-custom">
+		<p class="legal-notice-custom">
+			Please note that this document and the contents thereof are governed by our comprehensive Terms and Conditions. The full terms are available upon request and form an integral part of this transaction. For further information or to request a copy of our standard Terms and Conditions, please email our legal department at <a href="mailto:legal@lcvssc.com">legal@lcvssc.com</a>.
+		</p>
+		<div class="contact-details-custom">
+			<div>11 Flamink Road | Alrode</div>
+			<div>Johannesburg | Gauteng | 1451</div>
+			<div>+27 11 894 1640</div>
+			<div><a href="mailto:accounts@lcvssc.com">accounts@lcvssc.com</a></div>
+			<div><a href="mailto:info@lcvssc.com">info@lcvssc.com</a></div>
+		</div>
+	</div>
 </div>

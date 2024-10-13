@@ -228,9 +228,9 @@ def get_ar_filters(doc, entry):
 def get_html(doc, filters, entry, col, res, ageing):
 	base_template_path = "frappe/www/printview.html"
 	template_path = (
-		"erpnext/accounts/doctype/custom_process_statement_of_account/custom_process_statement_of_account.html"
+		"frappe_ats/doctype/custom_process_statement_of_account/custom_process_statement_of_accounts.html"
 		if doc.report == "General Ledger"
-		else "erpnext/accounts/doctype/custom_process_statement_of_account/custom_process_statement_of_account_accounts_receivable.html"
+		else "frappe_ats/doctype/custom_process_statement_of_account/custom_process_statement_of_accounts_accounts_receivable.html"
 	)
 
 	if doc.letter_head:
@@ -425,7 +425,7 @@ def get_customer_emails(customer_name, primary_mandatory, billing_and_primary=Tr
 
 @frappe.whitelist()
 def download_statements(document_name):
-	doc = frappe.get_doc("Process Statement Of Accounts", document_name)
+	doc = frappe.get_doc("Custom Process Statement Of Account", document_name)
 	report = get_report_pdf(doc)
 	if report:
 		frappe.local.response.filename = doc.name + ".pdf"
@@ -435,7 +435,7 @@ def download_statements(document_name):
 
 @frappe.whitelist()
 def send_emails(document_name, from_scheduler=False, posting_date=None):
-	doc = frappe.get_doc("Process Statement Of Accounts", document_name)
+	doc = frappe.get_doc("Custom Process Statement Of Account", document_name)
 	report = get_report_pdf(doc, consolidated=False)
 
 	if report:
@@ -465,7 +465,7 @@ def send_emails(document_name, from_scheduler=False, posting_date=None):
 				subject=subject,
 				message=message,
 				now=True,
-				reference_doctype="Process Statement Of Accounts",
+				reference_doctype="Custom Process Statement Of Account",
 				reference_name=document_name,
 				attachments=attachments,
 			)
