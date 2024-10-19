@@ -117,7 +117,6 @@ def get_report_pdf(doc, consolidated=True):
 def get_statement_dict(doc, get_statement_dict=False):
 	statement_dict = {}
 	ageing = ""
-
 	for entry in doc.customers:
 		if doc.include_ageing:
 			ageing = set_ageing(doc, entry)
@@ -251,6 +250,7 @@ def get_html(doc, filters, entry, col, res, ageing):
 			)
 			if doc.terms_and_conditions
 			else None,
+			"entry":entry.customer
 		},
 	)
 
@@ -491,9 +491,8 @@ def send_emails(document_name, from_scheduler=False, posting_date=None):
 @frappe.whitelist()
 def send_auto_email():
 	selected = frappe.get_list(
-		"Process Statement Of Accounts",
-		filters={"enable_auto_email": 1},
-		or_filters={"to_date": format_date(today()), "posting_date": format_date(today())},
+		"Custom Process Statement Of Account",
+		filters={"enable_auto_email": 1}
 	)
 	for entry in selected:
 		send_emails(entry.name, from_scheduler=True)

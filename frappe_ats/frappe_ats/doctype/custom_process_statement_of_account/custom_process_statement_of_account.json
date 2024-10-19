@@ -66,7 +66,8 @@
    "fieldname": "report",
    "fieldtype": "Select",
    "label": "Report",
-   "options": "General Ledger\nAccounts Receivable",
+   "options": "General Ledger",
+   "read_only": 1,
    "reqd": 1
   },
   {
@@ -387,7 +388,7 @@
   }
  ],
  "links": [],
- "modified": "2024-10-10 15:35:30.981890",
+ "modified": "2024-10-20 01:35:14.137659",
  "modified_by": "Administrator",
  "module": "Frappe Ats",
  "name": "Custom Process Statement Of Account",

@@ -133,23 +133,11 @@ app_license = "mit"
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"frappe_ats.tasks.all"
-# 	],
-# 	"daily": [
-# 		"frappe_ats.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"frappe_ats.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"frappe_ats.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"frappe_ats.tasks.monthly"
-# 	],
-# }
+scheduler_events = {
+	"daily": [
+		"frappe_ats.frappe_ats.doctype.custom_process_statement_of_account.custom_process_statement_of_account.send_auto_email"
+	]
+}
 
 # Testing
 # -------
